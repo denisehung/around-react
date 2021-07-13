@@ -36,7 +36,7 @@ function Main(props) {
             <div className="profile__details">
                 <div className="profile__image-container">
                     <div className="profile__image-overlay" onClick={props.onEditAvatarClick}></div>
-                    <img className="profile__image" src={userAvatar}  alt="avatar" />
+                    <div className="profile__image" style={{ backgroundImage: `url(${userAvatar})` }}   alt="avatar" ></div>
                 </div>
                 <div className="profile__description">
                     <div className="profile__name-wrapper">
