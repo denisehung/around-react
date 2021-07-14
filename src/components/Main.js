@@ -16,6 +16,9 @@ function Main(props) {
 
             console.log('DATA',res);
           })
+          .catch((err) => {
+            console.log(err); // Log error to console
+          })
       }, []);
 
       React.useEffect(() => {
@@ -27,6 +30,9 @@ function Main(props) {
                 key: card._id
             })))
             console.log('CARDS', res)
+          })
+          .catch((err) => {
+            console.log(err);
           })
       }, []);
 

@@ -2,8 +2,8 @@ import React from "react";
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-import AddImagePopup from './AddImagePopup';
-import ChangeAvatarPopup from "./ChangeAvatarPopup.js";
+import AddPlacePopup from './AddPlacePopup';
+import EditAvatarPopup from "./EditAvatarPopup.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import DeleteImagePopup from "./DeleteImagePopup.js";
 import ImagePopup from "./ImagePopup.js";
@@ -49,12 +49,12 @@ function App() {
         onClose={closeAllPopups}
     />
 
-    <AddImagePopup 
+    <AddPlacePopup 
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
     />
 
-    <ChangeAvatarPopup 
+    <EditAvatarPopup 
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
     />
