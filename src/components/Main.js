@@ -27,7 +27,7 @@ function Main(props) {
                 link: card.link,
                 name: card.name,
                 likes: card.likes.length,
-                key: card._id
+                _id: card._id
             })))
             console.log('CARDS', res)
           })
