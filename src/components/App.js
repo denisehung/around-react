@@ -5,7 +5,7 @@ import Footer from './Footer.js';
 import AddPlacePopup from './AddPlacePopup';
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import EditProfilePopup from "./EditProfilePopup.js";
-import DeleteImagePopup from "./DeleteImagePopup.js";
+import DeleteCardPopup from "./DeleteCardPopup.js";
 import ImagePopup from "./ImagePopup.js";
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
         onClose={closeAllPopups}
     />
 
-    <DeleteImagePopup />
+    <DeleteCardPopup />
     
     <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
