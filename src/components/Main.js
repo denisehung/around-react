@@ -32,6 +32,7 @@ function Main(props) {
                     key={card._id}
                     onCardClick={props.onCardClick}
                     onCardLike={props.onCardLike}
+                    onCardDelete={props.onCardDelete}
                 />
         ))}
         </section>

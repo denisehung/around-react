@@ -16,7 +16,7 @@ function App() {
     const[isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
     const[selectedCard, setSelectedCard] = React.useState();
     const[currentUser, setCurrentUser] = React.useState({});
-    const[cards, setCards] = React.useState([]);
+    
 
     React.useEffect(() => {
         api.getUserInfo().then((res) => {
@@ -29,30 +29,10 @@ function App() {
         })
     }, []);
 
-    React.useEffect(() => {
-        api.getInitialCards().then((res) => {
-          setCards(res)
-          console.log('CARDS', res)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }, []);
-
 
     function handleCardClick(clickedCard) {
         setSelectedCard(clickedCard);
     }
-
-    function handleCardLike(card) {
-        // Check one more time if this card was already liked
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
-        
-        // Send a request to the API and getting the updated card data
-        api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-            setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-        });
-    } 
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -73,6 +53,72 @@ function App() {
         setSelectedCard();
     }
 
+    const[cards, setCards] = React.useState([]);
+
+    React.useEffect(() => {
+        api.getInitialCards().then((res) => {
+          setCards(res)
+          console.log('CARDS', res)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }, []);
+
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        
+        // Send a request to the API and getting the updated card data
+        if(isLiked){
+            api.removeLike(card._id)
+            .then((newCard) => {
+                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+            })
+            .catch((err) => {
+                console.log(err);
+              });
+        } else {
+            api.addLike(card._id)
+            .then((newCard) => {
+                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+            })
+            .catch((err) => {
+                console.log(err);
+              });
+        }
+    } 
+
+    function handleCardDelete(card){
+        api.removeCard(card._id)
+        .then(() => {
+            setCards((state) => state.filter((c) => c._id !== card._id));
+        });
+    }
+
+    function handleUpdateUser(userData){
+        api.setUserInfo(userData)
+        .then((res) => {
+            setCurrentUser(res)
+        })
+        .catch((err) => {console.log(err)});
+    }
+
+    function handleUpdateAvatar(avatar){
+        api.setUserAvatar(avatar)
+        .then((res) => {
+            setCurrentUser(res)
+        })
+        .catch((err) => {console.log(err)});
+    }
+
+    function handleAddPlaceSubmit(cardData){
+        api.addCard(cardData)
+        .then((newCard) => {
+            setCards([newCard, ...cards]);
+        })
+        .catch((err) => {console.log(err)});
+    }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
 
@@ -83,24 +129,28 @@ function App() {
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
             onEditAvatarClick={handleEditAvatarClick}
-            onClose={closeAllPopups}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            onClose={closeAllPopups}
             cards={cards}
         />
 
         <AddPlacePopup 
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
+            onAddPlaceSubmit={handleAddPlaceSubmit}
         />
 
         <EditAvatarPopup 
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
         />
 
         <EditProfilePopup 
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
         />
 
         <DeleteCardPopup />
