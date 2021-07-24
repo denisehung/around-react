@@ -30,11 +30,10 @@ function Card(props) {
 
     function handleDelete() {
         props.onCardDelete(props.card);
-    }
-
+    }   
 
     return(
-        <div className="card" key={props.card._id}>
+        <div className="card">
             <button className={cardDeleteButtonClassName} onClick={handleDelete}></button>
             <img className="card__image" alt={props.card.name} src={props.card.link} onClick={handleClick} />
             <div className="card__textblock">

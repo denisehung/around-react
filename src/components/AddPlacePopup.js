@@ -2,8 +2,8 @@ import React from "react";
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup(props) {
-    const[name, setName] = React.useState();
-    const[link, setLink] = React.useState();
+    const[name, setName] = React.useState(null);
+    const[link, setLink] = React.useState(null);
 
     function handleChangeTitle(e) {
         setName(e.target.value);
@@ -19,11 +19,12 @@ function AddPlacePopup(props) {
           name: name,
           link: link
         });
-        props.onClose();
+        setName('');
+        setLink('');
       } 
 
     return(
-        <PopupWithForm name="add-img" title="New Place" btnText="Create" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+        <PopupWithForm name="add-img" title="New Place" btnText={props.isLoading ? 'Saving...' : 'Create'} isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} isLoading={props.isLoading}>
             <label className="popup__form-field">
                 <input type="text" className="popup__input popup__input_type_title" id="title-input" autoComplete="off" placeholder="Title" name="name" minLength="1" maxLength="30" value={name || ''} onChange={handleChangeTitle} required />
                 <span id="title-input-error" className="popup__error"></span>

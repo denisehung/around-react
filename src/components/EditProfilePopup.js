@@ -10,7 +10,7 @@ function EditProfilePopup(props) {
     React.useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-      }, [currentUser]); 
+      }, [currentUser, props.isOpen]); 
 
     function handleChangeName(e) {
         setName(e.target.value);
@@ -24,13 +24,12 @@ function EditProfilePopup(props) {
         e.preventDefault();
         props.onUpdateUser({
           name: name,
-          about: description,
+          about: description
         });
-        props.onClose();
       } 
 
     return(
-    <PopupWithForm name="edit" title="Edit profile" btnText="Save changes" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+    <PopupWithForm name="edit" title="Edit profile" btnText={props.isLoading ? 'Saving...' : 'Save changes'} isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} isLoading={props.isLoading}>
         <label className="popup__form-field">
             <input type="text" className="popup__input popup__input_type_name" id="name-input" autoComplete="off" placeholder="Name" name="username" minLength="2" maxLength="40" value={name || ''} onChange={handleChangeName} required/>
             <span id="name-input-error" className="popup__error"></span>

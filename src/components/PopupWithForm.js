@@ -1,8 +1,15 @@
 import React from "react";
 
 function PopupWithForm(props) {
+
+    function handlePopupClick(e) {
+        if (e.target.classList.contains('popup_opened')) {
+            props.onClose();
+        }
+    }
+
     return(
-        <div className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : '' }`}>
+        <div className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : '' }`} onClick={handlePopupClick}>
         <div className="popup__container">
             <button className="popup__close-button popup__close-button_type_form" type="button"
                 aria-label="Close popup" onClick={props.onClose}></button>

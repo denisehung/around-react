@@ -3,7 +3,7 @@ import React from "react";
 //Only open popup and return corresponding data if props.card (selectedCard) is true
 function ImagePopup(props) {
     return(
-        <div className={`popup popup_type_image ${props.card && 'popup_opened'}`}>
+        <div className={`popup popup_type_image ${props.card && 'popup_opened'}`}> 
         <div className="popup__wrapper">
             <button className="popup__close-button popup__close-button_type_image" type="button"
                 aria-label="Close popup" onClick={props.onClose}></button>
