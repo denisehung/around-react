@@ -28,7 +28,7 @@ function App() {
         }
     }
 
-    window.addEventListener('keyup', handleEscClose);
+    document.addEventListener('keyup', handleEscClose);
 
     
     React.useEffect(() => {
